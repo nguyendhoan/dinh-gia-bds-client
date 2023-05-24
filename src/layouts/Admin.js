@@ -14,6 +14,7 @@ import Dashboard from "views/admin/Dashboard.js";
 import Maps from "views/admin/Maps.js";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
+import Realestate from "views/admin/Realestate";
 
 export default function Admin() {
   return (
@@ -23,11 +24,12 @@ export default function Admin() {
         <AdminNavbar />
         {/* Header */}
         <HeaderStats />
-        <div className="px-4 md:px-10 mx-auto w-full -m-24">
+        <div className="w-full px-4 mx-auto -m-24 md:px-10">
           <Switch>
             <Route path="/admin/dashboard" exact component={Dashboard} />
             <Route path="/admin/maps" exact component={Maps} />
             <Route path="/admin/settings" exact component={Settings} />
+            <Route path="/admin/realestate" exact component={Realestate} />
             <Route path="/admin/tables" exact component={Tables} />
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
