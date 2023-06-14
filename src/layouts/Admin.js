@@ -31,93 +31,108 @@ import { withPageProtected as Admin } from '../context/withPageProtected'
 export const UserContext = createContext()
 
 export default Admin(() => {
-  const [userName, setUserName] = useState()
+    const [userName, setUserName] = useState()
 
-  const handleGetUser = async () => {
-    try {
-      const access_token = localStorage.getItem('accessToken')
-      const decoded = jwt.decode(access_token)
-      if (decoded) {
+    const handleGetUser = async() => {
         try {
-          const response = await axios.get(
-            `http://localhost:3002/users/${decoded.sub}`
-          )
-          const data = response.data.data
+            const access_token = localStorage.getItem('accessToken')
+            const decoded = jwt.decode(access_token)
+            if (decoded) {
+                try {
+                    const response = await axios.get(
+                        `${process.env.REACT_APP_API_URL}/users/${decoded.sub}`
+                    )
+                    const data = response.data.data
 
-          setUserName(data.username)
+                    setUserName(data.username)
+                } catch (error) {
+                    console.log('#ERR :', error)
+                }
+            }
         } catch (error) {
-          console.log('#ERR :', error)
+            console.log('#ERR:', error)
         }
-      }
-    } catch (error) {
-      console.log('#ERR:', error)
     }
-  }
-  useEffect(() => {
-    handleGetUser()
-  }, [])
+    useEffect(() => {
+        handleGetUser()
+    }, [])
 
-  console.log('#TEST :', userName)
+    console.log('#TEST :', userName)
 
-  return (
-    <>
-      <UserContext.Provider value={userName}>
-        <Sidebar />
-        <div className='relative md:ml-64 bg-blueGray-100'>
-          <AdminNavbar />
-          {/* Header */}
-          <HeaderStats />
-          <div className='w-full px-4 mx-auto -m-24 md:px-10'>
-            {userName === 'admin' ? (
-              <Switch>
-                <Route path='/admin/realestate' exact component={Realestate} />
-                <Route path='/admin/tables' exact component={Tables} />
-                <Route
-                  exact
-                  path='/admin/tables/detail/:id'
-                  component={Details}
+    return ( <
+        >
+        <
+        UserContext.Provider value = { userName } >
+        <
+        Sidebar / >
+        <
+        div className = 'relative md:ml-64 bg-blueGray-100' >
+        <
+        AdminNavbar / > { /* Header */ } <
+        HeaderStats / >
+        <
+        div className = 'w-full px-4 mx-auto -m-24 md:px-10' > {
+            userName === 'admin' ? ( <
+                Switch >
+                <
+                Route path = '/admin/realestate'
+                exact component = { Realestate }
+                /> <
+                Route path = '/admin/tables'
+                exact component = { Tables }
+                /> <
+                Route exact path = '/admin/tables/detail/:id'
+                component = { Details }
                 />
 
-                <Route
-                  path='/admin/tables/detail/update/:id'
-                  component={Update}
+                <
+                Route path = '/admin/tables/detail/update/:id'
+                component = { Update }
                 />
 
-                <Route path='/admin/users/table' exact component={UserTable} />
+                <
+                Route path = '/admin/users/table'
+                exact component = { UserTable }
+                />
 
-                <Route path='/admin/users/' exact component={User} />
-                <Route
-                  exact
-                  path='/admin/users/table/detail/:id'
-                  component={UserDetail}
-                />
-                <Route
-                  exact
-                  path='/admin/users/table/update/:id'
-                  component={UserUpdate}
-                />
-              </Switch>
-            ) : (
-              <Switch>
-                <Route path='/admin/realestate' exact component={Realestate} />
-                <Route path='/admin/tables' exact component={Tables} />
-                <Route
-                  exact
-                  path='/admin/tables/detail/:id'
-                  component={Details}
-                />
-                <Route
-                  path='/admin/tables/detail/update/:id'
-                  component={Update}
-                />
-                <Redirect to="/admin"/>
-              </Switch>
-            )}
+                <
+                Route path = '/admin/users/'
+                exact component = { User }
+                /> <
+                Route exact path = '/admin/users/table/detail/:id'
+                component = { UserDetail }
+                /> <
+                Route exact path = '/admin/users/table/update/:id'
+                component = { UserUpdate }
+                /> <
+                /Switch>
+            ) : ( <
+                Switch >
+                <
+                Route path = '/admin/realestate'
+                exact component = { Realestate }
+                /> <
+                Route path = '/admin/tables'
+                exact component = { Tables }
+                /> <
+                Route exact path = '/admin/tables/detail/:id'
+                component = { Details }
+                /> <
+                Route path = '/admin/tables/detail/update/:id'
+                component = { Update }
+                /> <
+                Redirect to = "/admin" / >
+                <
+                /Switch>
+            )
+        }
 
-            <FooterAdmin />
-          </div>
-        </div>
-      </UserContext.Provider>
-    </>
-  )
+        <
+        FooterAdmin / >
+        <
+        /div> <
+        /div> <
+        /UserContext.Provider> <
+        />
+    )
 })

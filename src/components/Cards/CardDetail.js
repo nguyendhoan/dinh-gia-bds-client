@@ -4,24 +4,24 @@ import { useFetch } from 'hooks/useFetch'
 import moment from 'moment'
 
 const CardDetail = ({ record }) => {
-  const [recordItem, setRecordItem] = useState()
-  const [proName, setProName] = useState('')
-  const [disName, setDisName] = useState('')
-  const [wardName, setWardName] = useState('')
+        const [recordItem, setRecordItem] = useState()
+        const [proName, setProName] = useState('')
+        const [disName, setDisName] = useState('')
+        const [wardName, setWardName] = useState('')
 
-  const [getProvinece] = useFetch('http://localhost:3002/provinces')
-  const [getDis] = useFetch(
-    `${
+        const [getProvinece] = useFetch(`${process.env.REACT_APP_API_URL}/provinces`)
+        const [getDis] = useFetch(
+                `${
       recordItem
-        ? `http://localhost:3002/districts/${recordItem.tinh}`
-        : `http://localhost:3002/districts/01`
+        ? `${process.env.REACT_APP_API_URL}/districts/${recordItem.tinh}`
+        : `${process.env.REACT_APP_API_URL}/districts/01`
     }`
   )
   const [getWard] = useFetch(
     `${
       recordItem
-        ? `http://localhost:3002/wards/${recordItem.quan}`
-        : `http://localhost:3002/wards/001`
+        ? `${process.env.REACT_APP_API_URL}/wards/${recordItem.quan}`
+        : `${process.env.REACT_APP_API_URL}/wards/001`
     }`
   )
 
