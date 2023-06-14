@@ -10,9 +10,9 @@ const CardUserUpdate = (user) => {
     const data = user.user
     const singleUser = data.find((user) => user.id == id)
 
-    const [userName, setUserName] = useState(singleUser ? .username || '')
-    const [passWord, setPassWord] = useState(singleUser ? .password || '')
-    const [role, setRole] = useState(singleUser ? .role || '')
+    const [userName, setUserName] = useState((singleUser ?? singleUser.username) || '')
+    const [passWord, setPassWord] = useState((singleUser ?? singleUser.password) || '')
+    const [role, setRole] = useState((singleUser ?? singleUser.role) || '')
 
     const handleUserNameChange = (e) => {
         e.preventDefault()

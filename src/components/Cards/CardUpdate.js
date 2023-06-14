@@ -70,8 +70,10 @@ function CardUpdate({ record }) {
                 setInputChieuRongDat(product.chieu_rong_dat)
                 setInputHinhDangDat(product.hinh_dang)
 
-                setInputViTri(product.vi_tri) {
-                    product.hem_met && setInputHem(product.hem_met)
+                setInputViTri(product.vi_tri)
+
+                if (product.hem_met) {
+                    setInputHem(product.hem_met)
                 }
 
                 setInputMoTaDat(product.mo_ta_dat)
