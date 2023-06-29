@@ -116,6 +116,7 @@ export default function Login() {
         Username <
         /label> <
         input value = { userName }
+        x-webkit-speech
         onChange = { handleUserNameChange }
         type = 'text'
         className = 'w-full px-3 py-3 text-sm transition-all duration-150 ease-linear bg-white border-0 rounded shadow placeholder-blueGray-300 text-blueGray-600 focus:outline-none focus:ring'
